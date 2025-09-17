@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+:root {
+  --clr-bg: #fff;
+  --clr-text: #202020;
+  --clr-primary: #f7f7f9;
+  --clr-secondary: #e5e5e7;
+  --clr-text-secondary: #7e868e;
+  --border-color: #0002;
+  --border-width: 1.2px;
+  --spacing: 2em;
+  --border-shadow: 0 0 0 var(--border-width) var(--border-color);
+}
+
+body {
+  height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 20px !important;
+  font-family: "Manrope", sans-serif;
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  padding: var(--spacing);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+[defs] {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+}
+
+main {
+  background: var(--clr-primary);
+  box-shadow: var(--border-shadow);
+  border-radius: 2em;
+  width: 100%;
+  padding: var(--spacing);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing);
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: var(--spacing);
+}
+
+li {
+  text-align: center;
+  padding-inline: var(--spacing);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1,
+h2 {
+  line-height: 2em;
+}
+
+.badge,
+b {
+  background: var(--clr-secondary);
+  border-radius: 99em;
+  color: var(--clr-text-secondary);
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: 0.9em;
+  padding: 0.3em 0.6em;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.folder {
+  display: grid;
+  aspect-ratio: 1;
+  background: none;
+  position: relative;
+  place-items: center;
+  grid-template-areas: "stack";
+
+  >* {
+    grid-area: stack;
+  }
+
+  --s: 1.0001;
+
+  &:hover {
+    --s: 1.05;
+  }
+
+  img {
+    padding: 0.5em;
+    background: var(--clr-bg);
+    border-radius: 1em;
+    width: 5em;
+    box-shadow: var(--border-shadow);
+    position: absolute;
+  }
+}
+
+i {
+  font-style: normal;
+}
+
+.icon {
+  display: block;
+  aspect-ratio: 4 / 3;
+  width: 12rem;
+  z-index: 1;
+  position: relative;
+  transition: .3s;
+  transform-origin: 50% 100%;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(10px);
+    background: #eeea;
+    clip-path: url('#folder-clip');
+    scale: var(--s);
+    transition: inherit;
+    transform-origin: inherit;
+    will-change: scale;
+  }
+
+  >svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    scale: var(--s);
+    transition: inherit;
+    transform-origin: inherit;
+  }
+
+  text {
+    text-shadow: 1px 1px 4px #0008;
+  }
+}
+
+.folder img {
+  --fallback-t: 50% 50%;
+  rotate: var(--_r);
+  inset: var(--_t, var(--fallback-t));
+  translate: -50% -50%;
+  transition: .25s;
+  transition-delay: calc(var(--_d) * 20ms);
+  will-change: transform;
+
+  &:nth-child(1) {
+    --_t: 30% 10%;
+    --_r: -20deg;
+    --_t-h: 19% 3%;
+    --_r-h: -27deg;
+    --_d: 1;
+  }
+
+  &:nth-child(2) {
+    --_t: 18% 27%;
+    --_r: 2deg;
+    --_t-h: 7% 27%;
+    --_r-h: -3deg;
+    --_d: 2;
+    z-index: 1;
+  }
+
+  &:nth-child(3) {
+    --_t: 26% 60%;
+    --_r: -10deg;
+    --_t-h: 12% 61%;
+    --_r-h: 6deg;
+    --_d: 3;
+  }
+
+  &:nth-child(4) {
+    --_t: 34% 91%;
+    --_r: 10deg;
+    --_t-h: 24% 94%;
+    --_r-h: 18deg;
+    --_d: 4;
+  }
+}
+
+.folder:hover img {
+  rotate: var(--_r-h, var(--fallback-t));
+  inset: var(--_t-h);
+}
